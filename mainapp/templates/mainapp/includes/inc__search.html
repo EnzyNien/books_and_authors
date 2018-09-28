@@ -1,0 +1,49 @@
+﻿{% load staticfiles %}
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-md-10">
+    <form>
+      <input id="url_pref" type="hidden" value="{{url_pref}}">
+      {% for item in search %}
+      <div class="form-group row">
+        <div class="col-3">
+          <label for="{{item.label}}">{{item.label}}:</label>
+        </div>
+        <div class="col-9">
+          {{ item }}
+        </div>
+      </div>
+      {% endfor %}
+    </form>
+      <div class="py-2"></div>
+      <button class="btn btn-primary" style="width:100%" id="search_button">Search</button>
+  </div>
+</div>
+
+
+<script>
+  $("#search_button").click(function () {
+    var queryString = {};
+    $(".query-class").each(function () {
+      var key_ = $(this).attr('id');
+      if ($(this).attr('type') && $(this).attr('type') === 'checkbox') {
+        if ($(this).is(':checked')) {
+          val_ = '1';
+        }  else {
+          val_ = '0';
+        }
+      } else {
+        val_ = $(this).val();
+      }
+      console.log(key_);
+      console.log(val_);
+      queryString[key_] = val_;
+      console.log(queryString);
+    });
+    return_ajax_resp($("#url_pref").val(), queryString);
+    return false
+  });
+</script>
+
+
+                 

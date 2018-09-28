@@ -1,0 +1,49 @@
+﻿{% load staticfiles %}
+{% load utils %}
+
+<!DOCTYPE html>
+<html lang="en">
+    {% include "mainapp/includes/inc__head.html" %}
+
+    <body>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-5 col-md-5 mb-5">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="">Редактирование строки таблицы {{model_name}}</h1>
+            </div>
+          </div>
+		<form class="form-signin" action="" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{% for item in form %}
+			<div class="form-group">
+				<label for="{{item.label}}">{{item.label}}:</label>
+				{{ item }}
+				{% if item.errors %}
+					<div class="form-group has-errors text-danger small">
+					{{item.errors}}
+					</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+			<button class="btn btn-primary" style="width:100%">Save</button>
+			{% for error in form.non_field_errors %}
+				<div class="form-group has-errors text-danger small">
+					{{error}}
+				</div>
+			{% endfor %}
+		</form>
+		</div>
+	</div>
+    </div>
+    </body>
+</html>
+
+
+
+
+
+

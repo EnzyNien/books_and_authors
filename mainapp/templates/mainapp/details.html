@@ -1,0 +1,58 @@
+﻿{% load staticfiles %}
+{% load utils %}
+
+<!DOCTYPE html>
+<html lang="en">
+    {% include "mainapp/includes/inc__head.html" %}
+
+    <body>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-5 col-md-5 mb-5">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="">Просмотр информации таблицы: {{model_name}}</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="">
+                {% get_fields_from_row object col_names None as item_row %}
+                {% for item in item_row %}
+                <li>{{item|default_if_none:"--"|safe}}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="">
+                {% get_m2m_fields_from_row object col_m2m as item_row %}
+                  {% for items in item_row %}
+                    <p>{{items.0}}</p>
+                    {% for item in items.1.all %}
+                      <li>{{item}}</li>
+                    {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <a class="btn btn-primary" type="button" href="{{url_pref}}" style="width:100%">Назад</a>
+            </div>
+          </div>
+        </div>
+	</div>
+    </div>
+    </body>
+</html>
+
+
+
+
+
+

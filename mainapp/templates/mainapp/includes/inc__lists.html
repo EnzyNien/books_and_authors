@@ -1,0 +1,54 @@
+﻿{% load staticfiles %}
+{% load utils %}
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-md-10">
+      <table class="table">
+        <thead>
+          <tr>
+            {% for col_name in col_names %}
+            <th>{{col_name.0}}</th>
+            {% endfor %}
+            <th style="width:120px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in result_query %}
+          <tr>
+            {% get_fields_from_row row col_names as item_row %}
+            {% for item in item_row %}
+            <td>{{item|default_if_none:"--"|safe}}</td>
+            {% endfor %}
+            <td class="d-flex justify-content-around">
+              <a title="" data-toggle="tooltip" style="display: inline;" id="details" href="/details{{url_pref}}{{row.pk}}">
+                <i class="fas fa-info"></i>
+              </a>
+              <a title="" data-toggle="tooltip" style="display: inline;" id="edit" href="/edit{{url_pref}}{{row.pk}}">
+                <i class="far fa-edit"></i>
+              </a>
+              <a title="" data-toggle="modal" data-target="#qDelRow" style="display: inline;" id="delete_{{row.pk}}" href="">
+                <i class="far fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-1"></div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
